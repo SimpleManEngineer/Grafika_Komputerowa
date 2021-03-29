@@ -1,0 +1,3 @@
+Nazwa pliku w repozytorium: LAB03_1.html
+
+Odpowiedź do zadania: Po dokonanej zmianie każda ściana ma inny kolor.
