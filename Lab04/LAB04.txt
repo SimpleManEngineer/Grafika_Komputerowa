@@ -1,1 +1,2 @@
 Nazwa pliku w repozytorium: LAB04.html
+Nazwa użytej tekstury: texture.jpg
