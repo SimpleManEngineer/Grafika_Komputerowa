@@ -708,7 +708,7 @@ if (!gl.getProgramParameter(shaderProgram3, gl.LINK_STATUS)) alert("Could not in
 
 // KONIEC SP3
 
-    [indexes, vertexPosition, vertexNormal, vertexCoord] = await LoadObj('volcan.obj');
+    [indexes, vertexPosition, vertexNormal, vertexCoord] = await LoadObj('wulkan.obj');
 
     vertexPositionBuffer = gl.createBuffer(); //Stworzenie tablicy w pamieci karty graficznej
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
@@ -742,7 +742,7 @@ if (!gl.getProgramParameter(shaderProgram3, gl.LINK_STATUS)) alert("Could not in
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     }
-    textureImg.src="lawa.jpg"; //Nazwa obrazka
+    textureImg.src="lawa.png"; //Nazwa obrazka
 
 
     //------------------------------SPHERE----------------------------
@@ -801,11 +801,11 @@ if (!gl.getProgramParameter(shaderProgram3, gl.LINK_STATUS)) alert("Could not in
   //let angle = 45.0; //Macierz transformacji świata - określenie położenia kamery 
   
   var angleZ = 0.0;
-  var angleY = 0.0;
-  var angleX = 0.0;
+  var angleY = 40.0;
+  var angleX = 1.0;
   var KameraPositionX = 0.0;
   var KameraPositionY = 0.0;
-  var KameraPositionZ = -18.0;
+  var KameraPositionZ = -15.5;
   
   var Object1PositionX = 0.0;
   var Object1PositionY = -1.0;
@@ -859,6 +859,7 @@ if (!gl.getProgramParameter(shaderProgram3, gl.LINK_STATUS)) alert("Could not in
   var Object5Sizedy = 5.0;
   var Object5Sizedz = 5.0;
 
+  var Object5AngleX = 0.0 
   var sphereRotY = 0.0;
   
   var direction = 1;
@@ -960,8 +961,11 @@ function rotate(angleX,angleY,rotateY,angleZ,tz,scale,objectx,objecty,objectz)
     uMMatrix1 = MatrixMul(uMMatrix1,CreateRotationZMatrix(Object1AngleZ));
     uMMatrix1 = MatrixMul(uMMatrix1,CreateTranslationMatrix(Object1PositionX,Object1PositionY,Object1PositionZ));  
  
-    //uMMatrix4 = rotate(angleX-=0.001,0.0,0.0,angleZ,KameraPositionZ,5.0,Object5PositionX,Object5PositionY,Object5PositionZ);
-    uMMatrix4 = MatrixMul(uMMatrix3,CreateScaleMatrix(Object5Sizedx,Object5Sizedy,Object5Sizedz));
+    //uMMatrix4 = rotate(angleX,0.0,0.0,angleZ,KameraPositionZ,5.0,Object5PositionX,Object5PositionY,Object5PositionZ);
+    //uMMatrix4 = MatrixMul(uMMatrix3,CreateScaleMatrix(Object5Sizedx,Object5Sizedy,Object5Sizedz));
+
+    uMMatrix4 = MatrixMul(uMMatrix4,CreateRotationXMatrix(Object5AngleX += 0.1));
+    uMMatrix4 = MatrixMul(uMMatrix4,CreateTranslationMatrix(Object1PositionX,Object1PositionY,Object1PositionZ));  
 
     uMMatrix0 = MatrixMul(uMMatrix0,CreateScaleMatrix(LightSize,LightSize,LightSize));
     //uMMatrix0 = MatrixMul(uMMatrix0,CreateTranslationMatrix(LightPositionX,LightPositionY,LightPositionZ));
@@ -1106,42 +1110,9 @@ function rotate(angleX,angleY,rotateY,angleZ,tz,scale,objectx,objecty,objectz)
 
     setTimeout(Tick,100);
   }
-  function handlekeydown(e)
-  {
-   // Q W E A S D
-   if(e.keyCode==87) angleX=angleX+1.0; //W
-   if(e.keyCode==83) angleX=angleX-1.0; //S
-   if(e.keyCode==68) angleY=angleY+1.0;
-   if(e.keyCode==65) angleY=angleY-1.0;
-   if(e.keyCode==81) angleZ=angleZ+1.0;
-   if(e.keyCode==69) angleZ=angleZ-1.0;
-   //alert(e.keyCode);
-   //alert(angleX);
-   
-   //U I O J K L
-   if(e.keyCode==76) LightPositionX=LightPositionX+0.1;
-   if(e.keyCode==74) LightPositionX=LightPositionX-0.1;
-   if(e.keyCode==73) LightPositionY=LightPositionY+0.1;
-   if(e.keyCode==75) LightPositionY=LightPositionY-0.1;
-   if(e.keyCode==85) LightPositionZ=LightPositionZ+0.1;
-   if(e.keyCode==79) LightPositionZ=LightPositionZ-0.1;
-   
-   //Z X
-   if(e.keyCode==88) KameraPositionZ=KameraPositionZ-0.1;
-   if(e.keyCode==90) KameraPositionZ=KameraPositionZ+0.1;
-   
-   //C V
-   if(e.keyCode==67) Object2AngleZ=Object2AngleZ-0.8;
-   if(e.keyCode==86) Object2AngleZ=Object2AngleZ+0.8;
-   
-   //B N
-   if(e.keyCode==66) Object3AngleZ=Object3AngleZ-0.8;
-   if(e.keyCode==78) Object3AngleZ=Object3AngleZ+0.8;
-   KameraPositionZ
-  }
   </script>
   </head>
-  <body onload="startGL()" onkeydown="handlekeydown(event)">
+  <body onload="startGL()">
   <canvas id="canvas3D" width="1280" height="720" style="border: solid black 1px"></canvas>
   
   </body></html>
